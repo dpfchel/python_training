@@ -9,7 +9,9 @@ import unittest, time, re
 
 class TestAddGroup(unittest.TestCase):
     def setUp(self):
-        self.wd = webdriver.Chrome(executable_path=r'')
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.binary_location = "C:/Program Files/Google/Chrome/Application/chrome.exe"
+        self.wd = webdriver.Chrome(executable_path=r'chromedriver.exe')
         self.wd.implicitly_wait(30)
 
     
