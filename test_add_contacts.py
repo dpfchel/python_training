@@ -2,6 +2,7 @@
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
+from selenium.webdriver.support.ui import Select
 import unittest, time
 from contact import Contact
 
@@ -17,10 +18,12 @@ class AddContacts(unittest.TestCase):
         self.open_group_page(wd)
         self.login(wd, username="admin", password="secret")
         self.open_edit_contacts_page(wd)
-        self.create_contact(wd, Contact(firstname="firstname", middlename="middlename", lastname="lastname", nickname="nick",
-                       title="title", company="comp", address="address", home="home", mobile="mobile", work="work",
-                       fax="fax", email="email1", email2="email2", email3="email3", homepage="homepage",
-                       address2="address2", phone2="home_sec", notes="notes_sec"))
+        self.create_contact(wd, Contact(firstname="firstname", middlename="middlename", lastname="lastname",
+                                        nickname="nick", title="title", company="comp", address="address", home="home",
+                                        mobile="mobile", work="work", fax="fax", email="email1", email2="email2",
+                                        email3="email3", homepage="homepage", bday="10", bmonth="February",
+                                        byear="2000", aday="5", amonth="March", ayear="2010", address2="address2",
+                                        phone2="home_sec", notes="notes_sec"))
         self.open_home_page(wd)
         self.logout(wd)
 
@@ -77,6 +80,20 @@ class AddContacts(unittest.TestCase):
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys(contact.homepage)
+        wd.find_element_by_name("bday").click()
+        Select(wd.find_element_by_name("bday")).select_by_visible_text(contact.bday)
+        wd.find_element_by_name("bmonth").click()
+        Select(wd.find_element_by_name("bmonth")).select_by_visible_text(contact.bmonth)
+        wd.find_element_by_name("byear").click()
+        wd.find_element_by_name("byear").clear()
+        wd.find_element_by_name("byear").send_keys(contact.byear)
+        wd.find_element_by_name("aday").click()
+        Select(wd.find_element_by_name("aday")).select_by_visible_text(contact.aday)
+        wd.find_element_by_name("amonth").click()
+        Select(wd.find_element_by_name("amonth")).select_by_visible_text(contact.amonth)
+        wd.find_element_by_name("ayear").click()
+        wd.find_element_by_name("ayear").clear()
+        wd.find_element_by_name("ayear").send_keys(contact.ayear)
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
         wd.find_element_by_name("address2").send_keys(contact.address2)
