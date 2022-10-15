@@ -19,11 +19,13 @@ class AddContacts(unittest.TestCase):
         self.login(wd, username="admin", password="secret")
         self.open_edit_contacts_page(wd)
         self.create_contact(wd, Contact(firstname="firstname", middlename="middlename", lastname="lastname",
-                                        nickname="nick", title="title", company="comp", address="address", home="home",
-                                        mobile="mobile", work="work", fax="fax", email="email1", email2="email2",
-                                        email3="email3", homepage="homepage", bday="10", bmonth="February",
-                                        byear="2000", aday="5", amonth="March", ayear="2010", address2="address2",
-                                        phone2="home_sec", notes="notes_sec"))
+                                        nickname="nick", title="title", company="comp", address="address",
+                                        home_telephone="home", mobile_telephone="mobile", work_telephone="work",
+                                        fax_telephone="fax", email="email1", email2="email2", email3="email3",
+                                        homepage="homepage", day_birthday="10", month_birthday="February",
+                                        year_birthday="2000", day_anniversary="5", month_anniversary="March",
+                                        year_anniversary="2010", address2="address2", home_phone2="home_sec",
+                                        notes="notes_sec"))
         self.open_home_page(wd)
         self.logout(wd)
 
@@ -58,16 +60,16 @@ class AddContacts(unittest.TestCase):
         wd.find_element_by_name("address").send_keys(contact.address)
         wd.find_element_by_name("home").click()
         wd.find_element_by_name("home").clear()
-        wd.find_element_by_name("home").send_keys(contact.home)
+        wd.find_element_by_name("home").send_keys(contact.home_telephone)
         wd.find_element_by_name("mobile").click()
         wd.find_element_by_name("mobile").clear()
-        wd.find_element_by_name("mobile").send_keys(contact.mobile)
+        wd.find_element_by_name("mobile").send_keys(contact.mobile_telephone)
         wd.find_element_by_name("work").click()
         wd.find_element_by_name("work").clear()
-        wd.find_element_by_name("work").send_keys(contact.work)
+        wd.find_element_by_name("work").send_keys(contact.work_telephone)
         wd.find_element_by_name("fax").click()
         wd.find_element_by_name("fax").clear()
-        wd.find_element_by_name("fax").send_keys(contact.fax)
+        wd.find_element_by_name("fax").send_keys(contact.fax_telephone)
         wd.find_element_by_name("email").click()
         wd.find_element_by_name("email").clear()
         wd.find_element_by_name("email").send_keys(contact.email)
@@ -81,25 +83,25 @@ class AddContacts(unittest.TestCase):
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys(contact.homepage)
         wd.find_element_by_name("bday").click()
-        Select(wd.find_element_by_name("bday")).select_by_visible_text(contact.bday)
+        Select(wd.find_element_by_name("bday")).select_by_visible_text(contact.day_birthday)
         wd.find_element_by_name("bmonth").click()
-        Select(wd.find_element_by_name("bmonth")).select_by_visible_text(contact.bmonth)
+        Select(wd.find_element_by_name("bmonth")).select_by_visible_text(contact.month_birthday)
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
-        wd.find_element_by_name("byear").send_keys(contact.byear)
+        wd.find_element_by_name("byear").send_keys(contact.year_birthday)
         wd.find_element_by_name("aday").click()
-        Select(wd.find_element_by_name("aday")).select_by_visible_text(contact.aday)
+        Select(wd.find_element_by_name("aday")).select_by_visible_text(contact.day_anniversary)
         wd.find_element_by_name("amonth").click()
-        Select(wd.find_element_by_name("amonth")).select_by_visible_text(contact.amonth)
+        Select(wd.find_element_by_name("amonth")).select_by_visible_text(contact.month_anniversary)
         wd.find_element_by_name("ayear").click()
         wd.find_element_by_name("ayear").clear()
-        wd.find_element_by_name("ayear").send_keys(contact.ayear)
+        wd.find_element_by_name("ayear").send_keys(contact.year_anniversary)
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
         wd.find_element_by_name("address2").send_keys(contact.address2)
         wd.find_element_by_name("phone2").click()
         wd.find_element_by_name("phone2").clear()
-        wd.find_element_by_name("phone2").send_keys(contact.phone2)
+        wd.find_element_by_name("phone2").send_keys(contact.home_phone2)
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(contact.notes)
