@@ -14,9 +14,8 @@ class AddContacts(unittest.TestCase):
         self.wd.implicitly_wait(30)
 
     def test_add_contact(self):
-        wd = self.wd
-        self.login(wd, username="admin", password="secret")
-        self.create_contact(wd, Contact(firstname="firstname", middlename="middlename", lastname="lastname",
+        self.login(username="admin", password="secret")
+        self.create_contact(Contact(firstname="firstname", middlename="middlename", lastname="lastname",
                                         nickname="nick", title="title", company="comp", address="address",
                                         home_telephone="home", mobile_telephone="mobile", work_telephone="work",
                                         fax_telephone="fax", email="email1", email2="email2", email3="email3",
@@ -24,16 +23,19 @@ class AddContacts(unittest.TestCase):
                                         year_birthday="2000", day_anniversary="5", month_anniversary="March",
                                         year_anniversary="2010", address2="address2", home_phone2="home_sec",
                                         notes="notes_sec"))
-        self.logout(wd)
+        self.logout()
 
-    def logout(self, wd):
+    def logout(self):
+        wd = self.wd
         wd.find_element_by_link_text("Logout").click()
 
-    def open_home_page(self, wd):
+    def open_home_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("home").click()
 
-    def create_contact(self, wd, contact):
-        self.open_edit_contacts_page(wd)
+    def create_contact(self, contact):
+        wd = self.wd
+        self.open_edit_contacts_page()
         # Input data and create contacts
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -104,17 +106,20 @@ class AddContacts(unittest.TestCase):
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(contact.notes)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
-        self.open_home_page(wd)
+        self.open_home_page()
 
-    def open_edit_contacts_page(self, wd):
+    def open_edit_contacts_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("add new").click()
         wd.get("http://localhost/addressbook/edit.php")
 
-    def open_group_page(self, wd):
+    def open_group_page(self):
+        wd = self.wd
         wd.get("http://localhost/addressbook/group.php")
 
-    def login(self, wd, username, password):
-        self.open_group_page(wd)
+    def login(self, username, password):
+        wd = self.wd
+        self.open_group_page()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
