@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+import pytest
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.support.ui import Select
 import unittest, time
 from contact import Contact
+
 
 class AddContacts(unittest.TestCase):
     def setUp(self):
