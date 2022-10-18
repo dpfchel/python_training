@@ -36,7 +36,7 @@ class GroupHelper:
         wd.find_element_by_name("delete").click()
         self.return_to_groups_page()
 
-    def modificate(self, group):
+    def modificate_first_group(self, group):
         wd = self.app.wd
         self.open_groups_page()
         wd.find_element_by_name("selected[]").click()
