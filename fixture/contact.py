@@ -1,5 +1,6 @@
 
 from selenium.webdriver.support.ui import Select
+import time
 
 class ContactHelper:
     def __init__(self, app):
@@ -78,6 +79,17 @@ class ContactHelper:
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(contact.notes)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        self.app.open_home_page()
+
+    def delete_first_contact(self):
+        wd = self.app.wd
+        self.app.open_home_page()
+        # выбор первого чек-бокса
+        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_css_selector("[onclick='DeleteSel()'][value='Delete']").click()
+        # подтверждаем удаление контакта
+        wd.switch_to.alert.accept()
+        #time.sleep(2)
         self.app.open_home_page()
 
     def open_edit_contacts_page(self):
