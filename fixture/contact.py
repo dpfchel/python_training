@@ -8,6 +8,7 @@ class ContactHelper:
 
     def create_contact(self, contact):
         wd = self.app.wd
+        # menu "add new"
         self.open_edit_contacts_page()
         # Input data and create contacts
         wd.find_element_by_name("firstname").click()
@@ -89,7 +90,6 @@ class ContactHelper:
         wd.find_element_by_css_selector("[onclick='DeleteSel()'][value='Delete']").click()
         # подтверждаем удаление контакта
         wd.switch_to.alert.accept()
-        #time.sleep(2)
         self.app.open_home_page()
 
     def test_modificate_contact(self, contact):
@@ -171,5 +171,5 @@ class ContactHelper:
 
     def open_edit_contacts_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
+        # menu "add new"
         wd.get("http://localhost/addressbook/edit.php")

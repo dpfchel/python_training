@@ -17,10 +17,12 @@ class Application:
 
     def open_group_page(self):
         wd = self.wd
+        # menu "groups"
         wd.get("http://localhost/addressbook/group.php")
 
     def open_home_page(self):
         wd = self.wd
+        # menu "home"
         wd.get("http://localhost/addressbook/index.php")
 
 
