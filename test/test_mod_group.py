@@ -5,3 +5,13 @@ def test_modificate_first_group(app):
     app.session.login(username="admin", password="secret")
     app.group.modificate_first_group(Group(name="modificate_name", header="modificate_header", footer="modificate_footer"))
     app.session.logout()
+
+def test_modificate_name_in_first_group(app):
+    app.session.login(username="admin", password="secret")
+    app.group.modificate_first_group(Group(name="123456789"))
+    app.session.logout()
+
+def test_modificate_header_and_footer_in_first_group(app):
+    app.session.login(username="admin", password="secret")
+    app.group.modificate_first_group(Group(header="987654321", footer="5555555555"))
+    app.session.logout()
