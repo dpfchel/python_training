@@ -1,5 +1,5 @@
 
-
+from selenium.webdriver.support.ui import Select
 
 
 class GroupHelper:
@@ -39,6 +39,7 @@ class GroupHelper:
 
     def select_first_group(self):
         wd = self.app.wd
+        self.open_groups_page()
         wd.find_element_by_name("selected[]").click()
 
 
@@ -61,13 +62,17 @@ class GroupHelper:
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
 
+    def change_field_value_select(self, field_name, text):
+        wd = self.app.wd
+        if text is not None:
+            wd.find_element_by_name(field_name).click()
+            Select(wd.find_element_by_name(field_name)).select_by_visible_text(text)
+
+
 
     def open_groups_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("groups").click()
 
-    def count(self):
-        wd = self.app.wd
-        self.open_groups_page()
-        return len(wd.find_elements_by_name("selected[]"))
+
 

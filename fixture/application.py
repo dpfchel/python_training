@@ -32,6 +32,16 @@ class Application:
         # menu "home"
         wd.get("http://localhost/addressbook/index.php")
 
+    def count(self, key):  # key = contact - подсчет контактов, key = group - подсчет групп
+        wd = self.wd
+        if key == 'group':
+            self.open_group_page()
+        elif key == 'contact':
+            self.open_home_page()
+        else:
+            print('Неверный параметр! key = contact - подсчет контактов, key = group - подсчет групп')
+        return len(wd.find_elements_by_name("selected[]"))
+
 
     def destroy(self):
         self.wd.quit()
