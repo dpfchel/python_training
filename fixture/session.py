@@ -19,3 +19,25 @@ class SessionHelper:
     def logout(self):
         wd = self.app.wd
         wd.find_element_by_link_text("Logout").click()
+
+    def ensure_logout(self):
+        wd = self.app.wd
+        if self.is_logged_in():
+            self.logout()
+
+    def is_logged_in(self):
+        wd = self.app.wd
+        return len(wd.find_elements_by_link_text("Logout")) > 0
+
+    def is_logged_in_as(self, username):
+        wd = self.app.wd
+        return wd.find_element_by_xpath("//div[@id='top']/form/b").text == "("+username+")"
+
+    def ensure_login(self, username, password):
+        wd = self.app.wd
+        if self.is_logged_in():
+            if self.is_logged_in_as(username):
+                return    # выход из метода, если залогинен именно username
+            else:
+                self.logout() # если залогин, но не username - выйдем
+        self.login(username, password)  # 1) если пользователь не залогинен, то логинемся, 2) или через if-else

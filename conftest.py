@@ -4,7 +4,7 @@ from fixture.application import Application
 
 fixture = None
 
-@pytest.fixture(scope = "session")
+@pytest.fixture
 def app(request):
     global fixture
     if fixture is None:
@@ -13,13 +13,13 @@ def app(request):
     else:
         if not fixture.is_valid():
             fixture = Application()
-            fixture.session.login(username="admin", password="secret")
+    fixture.session.ensure_login(username="admin", password="secret")
     return fixture
 
 @pytest.fixture(scope="session", autouse=True) # сработает автоматом, даже если ни в каком тесте не указана
 def stop(request):
     def fin():
-        fixture.session.logout()
+        fixture.session.ensure_logout()
         fixture.destroy()
     request.addfinalizer(fin)
     return fixture
