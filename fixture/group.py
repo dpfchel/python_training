@@ -1,5 +1,5 @@
 
-from selenium.webdriver.support.ui import Select
+#from selenium.webdriver.support.ui import Select
 
 
 class GroupHelper:
@@ -45,17 +45,20 @@ class GroupHelper:
 
     def fill_group_form(self, group):
         wd = self.app.wd
-        self.change_field_value("group_name", group.name)
-        self.change_field_value("group_header", group.header)
-        self.change_field_value("group_footer", group.footer)
+        self.app.change_field_value("group_name", group.name)
+        self.app.change_field_value("group_header", group.header)
+        self.app.change_field_value("group_footer", group.footer)
 
+    def open_groups_page(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("groups").click()
 
     """
     Если в fill_group_form переданы значения text изменяемого параметра field_name, 
     то эти значения text будут введены в соответствующее поле.
     Если не передано - то значение в поле не меняем
     """
-    def change_field_value(self, field_name, text):
+    """    def change_field_value(self, field_name, text):
         wd = self.app.wd
         if text is not None:
             wd.find_element_by_name(field_name).click()
@@ -66,13 +69,11 @@ class GroupHelper:
         wd = self.app.wd
         if text is not None:
             wd.find_element_by_name(field_name).click()
-            Select(wd.find_element_by_name(field_name)).select_by_visible_text(text)
+            Select(wd.find_element_by_name(field_name)).select_by_visible_text(text)"""
 
 
 
-    def open_groups_page(self):
-        wd = self.app.wd
-        wd.find_element_by_link_text("groups").click()
+
 
 
 
