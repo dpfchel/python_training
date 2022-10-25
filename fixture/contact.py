@@ -65,10 +65,14 @@ class ContactHelper:
     def open_edit_contacts_page(self):
         wd = self.app.wd
         # menu "add new"
-        wd.get("http://localhost/addressbook/edit.php")
+        if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements_by_name("submit")) > 0):
+            wd.get("http://localhost/addressbook/edit.php")
+
 
     def open_home_page(self):
         wd = self.app.wd
         # menu "home"
-        wd.get("http://localhost/addressbook/index.php")
+        if not (wd.current_url.endswith("/index.php") and len(wd.find_elements_by_css_selector("[value='Send e-Mail']")) > 0):
+            wd.get("http://localhost/addressbook/index.php")
+
 

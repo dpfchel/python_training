@@ -11,3 +11,6 @@ def test_add_contact(app):
                                     year_birthday="2000", day_anniversary="5", month_anniversary="March",
                                     year_anniversary="2010", address2="address2", home_phone2="home_sec",
                                     notes="notes_sec"))
+
+def test_add_contact_2(app):
+    app.contact.create_contact(Contact(firstname="firstname2"))

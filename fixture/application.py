@@ -10,7 +10,7 @@ class Application:
         chrome_options = webdriver.ChromeOptions()
         chrome_options.binary_location = "C:/Program Files/Google/Chrome/Application/chrome.exe"
         self.wd = webdriver.Chrome(executable_path=r'chromedriver.exe')
-        self.wd.implicitly_wait(5)
+        #self.wd.implicitly_wait(5)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
@@ -22,15 +22,6 @@ class Application:
         except:
             return False
 
-    """def open_group_page(self):
-        wd = self.wd
-        # menu "groups"
-        wd.get("http://localhost/addressbook/group.php")"""
-
-    """def open_home_page(self):
-        wd = self.wd
-        # menu "home"
-        wd.get("http://localhost/addressbook/index.php")"""
 
     def count(self, key):  # key = contact - подсчет контактов, key = group - подсчет групп
         wd = self.wd
