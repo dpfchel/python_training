@@ -12,7 +12,7 @@ class ContactHelper:
         self.open_edit_contacts_page()
         self.fill_contact_form(contact)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
-        self.app.open_home_page()
+        self.open_home_page()
 
     def fill_contact_form(self, contact):
         wd = self.app.wd
@@ -44,26 +44,31 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
-        self.app.open_home_page()
+        self.open_home_page()
         # выбор первого чек-бокса
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_css_selector("[onclick='DeleteSel()'][value='Delete']").click()
         # подтверждаем удаление контакта
         wd.switch_to.alert.accept()
-        self.app.open_home_page()
+        self.open_home_page()
 
     def test_modificate_contact(self, contact):
         wd = self.app.wd
-        self.app.open_home_page()
+        self.open_home_page()
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_css_selector("[title='Edit']").click()
         self.fill_contact_form(contact)
         wd.find_element_by_name("update").click()
-        self.app.open_home_page()
+        self.open_home_page()
 
 
     def open_edit_contacts_page(self):
         wd = self.app.wd
         # menu "add new"
         wd.get("http://localhost/addressbook/edit.php")
+
+    def open_home_page(self):
+        wd = self.app.wd
+        # menu "home"
+        wd.get("http://localhost/addressbook/index.php")
 
