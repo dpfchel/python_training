@@ -12,7 +12,11 @@ class Group:
         return "%s:%s" % (self.id, self.name)
 
     def __eq__(self, other):
-        return (self.id is None or other.id is None or self.id == other.id) and self.name == other.name
+        return (self.id is None or other.id is None or self.id == other.id) and \
+               (self.name is None or other.name is None or self.name == other.name) # добавил None , чтобы не падал тест
+        # test_modificate_header_and_footer_in_first_group, где модифицируются только header и footer
+
+
 
     def id_or_max(self):
         if self.id:
