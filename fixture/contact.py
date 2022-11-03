@@ -1,6 +1,5 @@
-
-
 import time
+from model.contact import Contact
 
 class ContactHelper:
     def __init__(self, app):
@@ -64,6 +63,7 @@ class ContactHelper:
 
     def open_edit_contacts_page(self):
         wd = self.app.wd
+        # Если страница не открыта, то откроем страницу
         # menu "add new"
         if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements_by_name("submit")) > 0):
             wd.get("http://localhost/addressbook/edit.php")
@@ -71,8 +71,26 @@ class ContactHelper:
 
     def open_home_page(self):
         wd = self.app.wd
+        # Если страница не открыта, то откроем страницу
         # menu "home"
         if not (wd.current_url.endswith("/index.php") and len(wd.find_elements_by_css_selector("[value='Send e-Mail']")) > 0):
             wd.get("http://localhost/addressbook/index.php")
+
+
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.open_home_page()
+        contacts = []
+        #for element in wd.find_elements_by_css_selector("[name='selected[]'][type='checkbox']"):
+        i = 2
+        for element in wd.find_elements_by_css_selector("tr[name='entry']"):
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            str2 = "//tr[" + str(i) + "]/td[2]"
+            lastname = element.find_element_by_xpath(str2).text
+            str3 = "//tr[" + str(i) + "]/td[3]"
+            firstname = element.find_element_by_xpath(str3).text
+            contacts.append(Contact(lastname = lastname, firstname = firstname , id = id))
+            i += 1
+        return contacts
 
 
