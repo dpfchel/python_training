@@ -86,7 +86,6 @@ class ContactHelper:
             wd = self.app.wd
             self.open_home_page()
             self.contact_cache = []
-            #for element in wd.find_elements_by_css_selector("[name='selected[]'][type='checkbox']"):
             i = 2
             for element in wd.find_elements_by_css_selector("tr[name='entry']"):
                 id = element.find_element_by_name("selected[]").get_attribute("value")

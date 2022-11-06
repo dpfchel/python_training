@@ -18,16 +18,16 @@ def test_modificate_contact(app):
     new_contacts = app.contact.get_contact_list()
     assert len(old_contacts) == len(new_contacts)
     old_contacts[0] = contact
+    #assert old_contacts == new_contacts
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
-def test_modificate_contact_one_field(app):
-    if app.count('contact') == 0:
-        app.contact.create_contact(Contact(firstname="firstname123", day_birthday="20", year_anniversary="2020"))
-    old_contacts = app.contact.get_contact_list()
-    old_contacts = app.contact.get_contact_list()
-    contact = Contact(home_telephone="999999999")
-    app.contact.test_modificate_contact(contact)
-    new_contacts = app.contact.get_contact_list()
-    assert len(old_contacts) == len(new_contacts)
-    old_contacts[0] = contact
-    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+#def test_modificate_contact_one_field(app):
+#    if app.count('contact') == 0:
+#        app.contact.create_contact(Contact(firstname="firstname123", day_birthday="20", year_anniversary="2020"))
+#    old_contacts = app.contact.get_contact_list()
+#    contact = Contact(home_telephone="991991991")
+#    app.contact.test_modificate_contact(contact)
+#    new_contacts = app.contact.get_contact_list()
+#    assert len(old_contacts) == len(new_contacts)
+#    old_contacts[0] = contact
+#    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
