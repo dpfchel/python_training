@@ -60,6 +60,7 @@ class ContactHelper:
     def modificate_contact_by_id(self, new_contact_data):
         wd = self.app.wd
         self.open_home_page()
+        # переход в модификацию контакта по карандашу с нужным id записи
         str_id = "[href='edit.php?id=" + new_contact_data.id + "']"
         wd.find_element_by_css_selector(str_id).click()
         self.fill_contact_form(new_contact_data)
