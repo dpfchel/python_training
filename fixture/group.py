@@ -4,8 +4,6 @@ from model.group import Group
 
 class GroupHelper:
 
-    group_cache = None    # Кэш для get_group_list, сбрасываем после создания, удаления, модификации групп
-
     def __init__(self, app):
         self.app = app
 
@@ -55,6 +53,8 @@ class GroupHelper:
         wd = self.app.wd
         if not (wd.current_url.endswith("/groups.php") and len(wd.find_elements_by_name("new")) > 0):
             wd.find_element_by_link_text("groups").click()
+
+    group_cache = None  # Кэш для get_group_list, сбрасываем после создания, удаления, модификации групп
 
     def get_group_list(self):
         if self.group_cache is None:

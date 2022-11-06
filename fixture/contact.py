@@ -12,6 +12,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.open_home_page()
+        self.contact_cache = None
 
     def fill_contact_form(self, contact):
         wd = self.app.wd
@@ -50,6 +51,7 @@ class ContactHelper:
         # подтверждаем удаление контакта
         wd.switch_to.alert.accept()
         self.open_home_page()
+        self.contact_cache = None
 
     def test_modificate_contact(self, contact):
         wd = self.app.wd
@@ -59,6 +61,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         wd.find_element_by_name("update").click()
         self.open_home_page()
+        self.contact_cache = None
 
 
     def open_edit_contacts_page(self):
@@ -76,21 +79,23 @@ class ContactHelper:
         if not (wd.current_url.endswith("/index.php") and len(wd.find_elements_by_css_selector("[value='Send e-Mail']")) > 0):
             wd.get("http://localhost/addressbook/index.php")
 
+    contact_cache = None  # Кэш для get_contact_list, сбрасываем после создания, удаления, модификации контактов
 
     def get_contact_list(self):
-        wd = self.app.wd
-        self.open_home_page()
-        contacts = []
-        #for element in wd.find_elements_by_css_selector("[name='selected[]'][type='checkbox']"):
-        i = 2
-        for element in wd.find_elements_by_css_selector("tr[name='entry']"):
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            str2 = "//tr[" + str(i) + "]/td[2]"
-            lastname = element.find_element_by_xpath(str2).text
-            str3 = "//tr[" + str(i) + "]/td[3]"
-            firstname = element.find_element_by_xpath(str3).text
-            contacts.append(Contact(lastname = lastname, firstname = firstname , id = id))
-            i += 1
-        return contacts
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.open_home_page()
+            self.contact_cache = []
+            #for element in wd.find_elements_by_css_selector("[name='selected[]'][type='checkbox']"):
+            i = 2
+            for element in wd.find_elements_by_css_selector("tr[name='entry']"):
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                str2 = "//tr[" + str(i) + "]/td[2]"
+                lastname = element.find_element_by_xpath(str2).text
+                str3 = "//tr[" + str(i) + "]/td[3]"
+                firstname = element.find_element_by_xpath(str3).text
+                self.contact_cache.append(Contact(lastname = lastname, firstname = firstname , id = id))
+                i += 1
+        return list(self.contact_cache)    # list - возвращаем копию кэша
 
 
