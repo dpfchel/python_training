@@ -14,11 +14,11 @@ def test_modificate_contact(app):
                                         year_birthday="1000", day_anniversary="10", month_anniversary="February",
                                         year_anniversary="1010", address2="modificate_", home_phone2="11111111",
                                         notes="modificate_notes_sec")
+    contact.id = old_contacts[0].id
     app.contact.test_modificate_contact(contact)
     new_contacts = app.contact.get_contact_list()
     assert len(old_contacts) == len(new_contacts)
     old_contacts[0] = contact
-    #assert old_contacts == new_contacts
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
 #def test_modificate_contact_one_field(app):
@@ -26,6 +26,7 @@ def test_modificate_contact(app):
 #        app.contact.create_contact(Contact(firstname="firstname123", day_birthday="20", year_anniversary="2020"))
 #    old_contacts = app.contact.get_contact_list()
 #    contact = Contact(home_telephone="991991991")
+#    contact.id = old_contacts[0].id
 #    app.contact.test_modificate_contact(contact)
 #    new_contacts = app.contact.get_contact_list()
 #    assert len(old_contacts) == len(new_contacts)
