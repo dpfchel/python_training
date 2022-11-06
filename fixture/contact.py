@@ -41,27 +41,39 @@ class ContactHelper:
         self.app.change_field_value("phone2", contact.home_phone2)
         self.app.change_field_value("notes", contact.notes)
 
-
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.open_home_page()
-        # выбор первого чек-бокса
-        wd.find_element_by_name("selected[]").click()
+        self.select_contact_by_index(index)
         wd.find_element_by_css_selector("[onclick='DeleteSel()'][value='Delete']").click()
         # подтверждаем удаление контакта
         wd.switch_to.alert.accept()
         self.open_home_page()
         self.contact_cache = None
 
-    def test_modificate_contact(self, contact):
+    #def modificate_first_contact(self):
+    #    self.modificate_contact_by_index(0)
+
+    def modificate_contact_by_id(self, new_contact_data):
         wd = self.app.wd
         self.open_home_page()
-        wd.find_element_by_name("selected[]").click()
-        wd.find_element_by_css_selector("[title='Edit']").click()
-        self.fill_contact_form(contact)
+        str_id = "[href='edit.php?id=" + new_contact_data.id + "']"
+        wd.find_element_by_css_selector(str_id).click()
+        self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
         self.open_home_page()
         self.contact_cache = None
+
+    #def select_first_contact(self):
+    #    self.select_contact_by_index(0)
+
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_elements_by_name("selected[]")[index].click()
 
 
     def open_edit_contacts_page(self):
@@ -95,6 +107,8 @@ class ContactHelper:
                 firstname = element.find_element_by_xpath(str3).text
                 self.contact_cache.append(Contact(lastname = lastname, firstname = firstname , id = id))
                 i += 1
-        return list(self.contact_cache)    # list - возвращаем копию кэша
+        return list(self.contact_cache)   # list - возвращаем копию кэша
+
+
 
 

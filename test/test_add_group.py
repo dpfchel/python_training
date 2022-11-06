@@ -12,7 +12,16 @@ def test_add_group(app):
 
 def test_add_empty_group(app):
     old_groups = app.group.get_group_list()
-    group = Group(name="", header="", footer="")
+    group = Group(name="name1", header="", footer="")
+    app.group.create(group)
+    assert (len(old_groups)+1) == app.count('group')    # метод app.count('group') в роли хэш от get_group_list()
+    new_groups = app.group.get_group_list()
+    old_groups.append(group)
+    assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
+
+def test_add_empty_group(app):
+    old_groups = app.group.get_group_list()
+    group = Group(name="some_name", header="", footer="")
     app.group.create(group)
     assert (len(old_groups)+1) == app.count('group')    # метод app.count('group') в роли хэш от get_group_list()
     new_groups = app.group.get_group_list()

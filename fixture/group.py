@@ -21,6 +21,7 @@ class GroupHelper:
 
     def delete_first_group(self):
         self.delete_group_by_index(0)
+
     def delete_group_by_index(self, index):
         wd = self.app.wd
         self.open_groups_page()
@@ -29,9 +30,8 @@ class GroupHelper:
         self.open_groups_page()
         self.group_cache = None  # сбрасываем кэш
 
-    def modificate_first_group(self, new_group_data):
+    def modificate_first_group(self):
         self.modificate_group_by_index(0)
-        self.group_cache = None  # сбрасываем кэш
 
     def modificate_group_by_index(self, index, new_group_data):
         wd = self.app.wd

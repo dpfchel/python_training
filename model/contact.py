@@ -38,9 +38,10 @@ class Contact:
 
     def __eq__(self, other):
         #return (self.id is None or other.id is None or self.id == other.id) and self.lastname == other.lastname and self.firstname == other.firstname
-        return (self.id is None or other.id is None or self.id == other.id) and \
-               (self.lastname is None or other.lastname is None or self.lastname == other.lastname) and \
-               (self.firstname is None or other.firstname is None or self.firstname == other.firstname)
+        return ((self.id is None) or (other.id is None) or (self.id == other.id)) and \
+               ((self.lastname is None) or (other.lastname is None) or (self.lastname == other.lastname)) and \
+               ((self.firstname is None) or (other.firstname is None) or (self.firstname == other.firstname))
+        #return ((self.id is None) or (other.id is None) or (self.id == other.id))
 
     def id_or_max(self):
         if self.id:
