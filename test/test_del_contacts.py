@@ -7,13 +7,8 @@ def test_del_some_contact(app):
         app.contact.create_contact(Contact(firstname="firstname123"))
     old_contacts = app.contact.get_contact_list()
     index = randrange(len(old_contacts))
-    f = open("D:/1.txt", 'a')
-    id = old_contacts[index].id
-    f.write(str(id) + ' = id')
-    f.write('\n')
-    f.close()
     app.contact.delete_contact_by_index(index)
     new_contacts = app.contact.get_contact_list()
     assert (len(old_contacts) - 1) == len(new_contacts)
-    old_contacts[index:index+1] = []  # удаляем первый элемент
+    old_contacts[index:index+1] = []  # удаляем элемент
     assert old_contacts == new_contacts

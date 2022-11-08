@@ -61,7 +61,7 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page()
         # переход в модификацию контакта по карандашу с нужным id записи
-        str_id = "[href='edit.php?id=" + new_contact_data.id + "']"
+        str_id = "[href='edit.php?id=%s']" % new_contact_data.id        #str_id = "[href='edit.php?id=" + new_contact_data.id + "']"
         wd.find_element_by_css_selector(str_id).click()
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
@@ -102,9 +102,9 @@ class ContactHelper:
             i = 2
             for element in wd.find_elements_by_css_selector("tr[name='entry']"):
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                str2 = "//tr[" + str(i) + "]/td[2]"
+                str2 = "//tr[%s]/td[2]" % str(i)  #str2 = "//tr[" + str(i) + "]/td[2]"
                 lastname = element.find_element_by_xpath(str2).text
-                str3 = "//tr[" + str(i) + "]/td[3]"
+                str3 = "//tr[%s]/td[3]" % str(i)
                 firstname = element.find_element_by_xpath(str3).text
                 self.contact_cache.append(Contact(lastname = lastname, firstname = firstname , id = id))
                 i += 1
