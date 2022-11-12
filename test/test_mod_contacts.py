@@ -19,7 +19,6 @@ def test_modificate_contact_home_telephone(app):
 
 
 
-"""
 def test_modificate_contact_all_param(app):
     if app.count('contact') == 0:
         app.contact.create_contact(Contact(firstname="firstname123"))
@@ -40,4 +39,3 @@ def test_modificate_contact_all_param(app):
     old_contacts[index] = contact
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
     
-    """

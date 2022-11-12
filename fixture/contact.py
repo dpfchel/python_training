@@ -118,27 +118,57 @@ class ContactHelper:
                 lastname = element.find_element_by_xpath(str2).text
                 str3 = "//tr[%s]/td[3]" % str(i)
                 firstname = element.find_element_by_xpath(str3).text
+                str4 = "//tr[%s]/td[4]" % str(i)
+                address = element.find_element_by_xpath(str4).text
+                str5 = "//tr[%s]/td[5]" % str(i)
+                all_email_str = element.find_element_by_xpath(str5).text
                 str6 = "//tr[%s]/td[6]" % str(i)
                 all_phones_str = element.find_element_by_xpath(str6).text
                 all_phones = all_phones_str.splitlines()
-                self.contact_cache.append(Contact(lastname=lastname, firstname=firstname, id=id,
-                                                  all_phones_from_home_page=all_phones_str))
+                self.contact_cache.append(Contact(lastname=lastname, firstname=firstname, id=id, address=address,
+                                                  all_email_from_home_page=all_email_str, all_phones_from_home_page=all_phones_str))
                 i += 1
         return list(self.contact_cache)   # list - возвращаем копию кэша
+
 
 
     def get_contact_info_from_edit_page(self, id):
         wd = self.app.wd
         self.open_contact_to_edit_by_id(id)
-        home_telephone = wd.find_element_by_name("home").get_attribute("value")
-        work_telephone = wd.find_element_by_name("work").get_attribute("value")
-        mobile_telephone = wd.find_element_by_name("mobile").get_attribute("value")
-        home_phone2 = wd.find_element_by_name("phone2").get_attribute("value")
         firstname = wd.find_element_by_name("firstname").get_attribute("value")
+        middlename = wd.find_element_by_name("middlename").get_attribute("value")
         lastname = wd.find_element_by_name("lastname").get_attribute("value")
+        nickname = wd.find_element_by_name("nickname").get_attribute("value")
+        #photo
+        #delete
+        company = wd.find_element_by_name("company").get_attribute("value")
+        title = wd.find_element_by_name("title").get_attribute("value")
+        address = wd.find_element_by_name("address").get_attribute("value")
+        home_telephone = wd.find_element_by_name("home").get_attribute("value")
+        mobile_telephone = wd.find_element_by_name("mobile").get_attribute("value")
+        work_telephone = wd.find_element_by_name("work").get_attribute("value")
+        fax_telephone = wd.find_element_by_name("fax").get_attribute("value")
+        email = wd.find_element_by_name("email").get_attribute("value")
+        email2 = wd.find_element_by_name("email2").get_attribute("value")
+        email3 = wd.find_element_by_name("email3").get_attribute("value")
+        homepage = wd.find_element_by_name("homepage").get_attribute("value")
+        day_birthday = wd.find_element_by_name("bday").get_attribute("value")
+        month_birthday = wd.find_element_by_name("bmonth").get_attribute("value")
+        year_birthday = wd.find_element_by_name("byear").get_attribute("value")
+        day_anniversary = wd.find_element_by_name("aday").get_attribute("value")
+        month_anniversary = wd.find_element_by_name("amonth").get_attribute("value")
+        year_anniversary = wd.find_element_by_name("ayear").get_attribute("value")
+        address2 = wd.find_element_by_name("address2").get_attribute("value")
+        home_phone2 = wd.find_element_by_name("phone2").get_attribute("value")
+        notes = wd.find_element_by_name("notes").get_attribute("value")
         id = wd.find_element_by_name("id").get_attribute("value")
-        return Contact(firstname=firstname, lastname=lastname, id=id, home_telephone=home_telephone,
-                       mobile_telephone=mobile_telephone, work_telephone=work_telephone, home_phone2=home_phone2)
+        return Contact(firstname=firstname, middlename=middlename, lastname=lastname, nickname=nickname,
+                       company=company, title=title, address=address, home_telephone=home_telephone,
+                       mobile_telephone=mobile_telephone, work_telephone=work_telephone, fax_telephone=fax_telephone,
+                       email=email, email2=email2, email3=email3, homepage=homepage, day_birthday=day_birthday,
+                       month_birthday=month_birthday, year_birthday=year_birthday, day_anniversary=day_anniversary,
+                       month_anniversary=month_anniversary, year_anniversary=year_anniversary, address2=address2,
+                       home_phone2=home_phone2, notes=notes, id=id)
 
 
     def get_contact_info_from_view_page(self, id):
@@ -152,7 +182,7 @@ class ContactHelper:
         return Contact(home_telephone=home_telephone, mobile_telephone=mobile_telephone,
                        work_telephone=work_telephone, home_phone2=home_phone2)
 
-    # Для исправления ситуации, когда re.search(liked_text_mask, text) is None
+    # Для обхода ситуации, когда re.search(liked_text_mask, text) is None
     # то у такого объекта нет метода .group(1)
     def search_text_phones_on_view_page(self, liked_text_mask, text):
         if (re.search(liked_text_mask, text) is not None):
