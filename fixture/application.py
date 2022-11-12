@@ -4,6 +4,8 @@ from fixture.session import SessionHelper
 from fixture.group import GroupHelper
 from fixture.contact import ContactHelper
 from selenium.webdriver.support.ui import Select
+import random
+import string
 
 class Application:
     def __init__(self):
@@ -45,6 +47,10 @@ class Application:
         if text is not None:
             wd.find_element_by_name(field_name).click()
             Select(wd.find_element_by_name(field_name)).select_by_visible_text(text)
+
+    def random_string(prefix, maxlen):
+        symbols = string.ascii_letters + string.digits + string.punctuation + " " * 10
+        return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
     def destroy(self):

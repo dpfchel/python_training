@@ -2,20 +2,15 @@
 from model.group import Group
 import pytest
 import random
-import string
+from fixture.application import Application as appl
 
-def random_string(prefix, maxlen):
-    symbols = string.ascii_letters + string.digits + string.punctuation + " "*10
-    return (prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])).strip()
-    # strip - удалить пробел с начала и конца строки. Для краевых случаев с пробелами в начале и в конце строки - создадим отдельный тест.
-    # Странная ситуация с двумя пробелами подряд в середине строки - на group.php отображается как один пробел - или дефект или изменить тест
 
    # полный перебор комбинаций
 testdata = [
     Group(name=name, header=header, footer=footer)
-    for name in ["", random_string("name", 10)]
-    for header in ["", random_string("header", 20)]
-    for footer in ["", random_string("footer", 20)]
+    for name in ["", (appl.random_string("name", 10)).strip()]   # strip - удалить пробел с начала и конца строки. Для краевых случаев с пробелами в начале и в конце строки - создаем отдельные тесты.
+    for header in ["", appl.random_string("header", 20)]
+    for footer in ["", appl.random_string("footer", 20)]
 ]
 @pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
 def test_add_group(app, group):
