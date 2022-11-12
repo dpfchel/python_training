@@ -9,11 +9,16 @@ class Group:
         self.id = id
 
     def __repr__(self):
-        return "%s:%s" % (self.id, self.name)
+        return "%s:%s:%s:%s" % (self.id, self.name, self.header, self.footer)
 
     def __eq__(self, other):
         return (self.id is None or other.id is None or self.id == other.id) and \
-               (self.name is None or other.name is None or self.name == other.name) # добавил None , чтобы не падал тест
+               (self.name is None or other.name is None or self.name == other.name) and \
+               (self.header is None or other.header is None or self.header == other.header) and \
+               (self.footer is None or other.footer is None or self.footer == other.footer)
+
+
+        # добавил None , чтобы не падал тест
         # test_modificate_header_and_footer_in_first_group, где модифицируются только header и footer
 
 
