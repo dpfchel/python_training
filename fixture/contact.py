@@ -119,16 +119,13 @@ class ContactHelper:
                 str3 = "//tr[%s]/td[3]" % str(i)
                 firstname = element.find_element_by_xpath(str3).text
                 str6 = "//tr[%s]/td[6]" % str(i)
-                all_phones = element.find_element_by_xpath(str6).text
-                all_phones_list = all_phones.splitlines()
-                self.contact_cache.append(Contact(lastname = lastname, firstname = firstname , id = id,
-                                                  home_telephone=all_phones_list[0],
-                                                  mobile_telephone=all_phones_list[1],
-                                                  work_telephone=all_phones_list[2],
-                                                  home_phone2=all_phones_list[3]
-                                                  ))
+                all_phones_str = element.find_element_by_xpath(str6).text
+                all_phones = all_phones_str.splitlines()
+                self.contact_cache.append(Contact(lastname=lastname, firstname=firstname, id=id,
+                                                  all_phones_from_home_page=all_phones_str))
                 i += 1
         return list(self.contact_cache)   # list - возвращаем копию кэша
+
 
     def get_contact_info_from_edit_page(self, id):
         wd = self.app.wd
@@ -148,9 +145,17 @@ class ContactHelper:
         wd = self.app.wd
         self.open_contact_view_by_id(id)
         text = wd.find_element_by_id("content").text
-        home_telephone = re.search("H: (.*)", text).group(1)
-        mobile_telephone = re.search("M: (.*)", text).group(1)
-        work_telephone = re.search("W: (.*)", text).group(1)
-        home_phone2 = re.search("P: (.*)", text).group(1)
+        home_telephone = self.search_text_phones_on_view_page("H: (.*)", text)
+        mobile_telephone = self.search_text_phones_on_view_page("M: (.*)", text)
+        work_telephone = self.search_text_phones_on_view_page("W: (.*)", text)
+        home_phone2 = self.search_text_phones_on_view_page("P: (.*)", text)
         return Contact(home_telephone=home_telephone, mobile_telephone=mobile_telephone,
                        work_telephone=work_telephone, home_phone2=home_phone2)
+
+    # Для исправления ситуации, когда re.search(liked_text_mask, text) is None
+    # то у такого объекта нет метода .group(1)
+    def search_text_phones_on_view_page(self, liked_text_mask, text):
+        if (re.search(liked_text_mask, text) is not None):
+            return re.search(liked_text_mask, text).group(1)
+        else: return None
+
