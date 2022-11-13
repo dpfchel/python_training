@@ -102,7 +102,7 @@ class ContactHelper:
         # Если страница не открыта, то откроем страницу
         # menu "home"
         if not (wd.current_url.endswith("/index.php") and len(wd.find_elements_by_css_selector("[value='Send e-Mail']")) > 0):
-            wd.get("http://localhost/addressbook/index.php")
+            wd.get(self.app.base_url)
 
     contact_cache = None  # Кэш для get_contact_list, сбрасываем после создания, удаления, модификации контактов
 
