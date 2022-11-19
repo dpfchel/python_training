@@ -3,12 +3,11 @@ from model.group import Group
 import random
 from fixture.application import Application as appl
 
+
 constant = [
     Group(name='name1', header='header1', footer='footer1'),
     Group(name='name2', header='header2', footer='footer2')
 ]
-
-
 
    # полный перебор комбинаций
 testdata = [
@@ -17,3 +16,4 @@ testdata = [
     for header in ["", appl.random_string("header", 20)]
     for footer in ["", appl.random_string("footer", 20)]
 ]
+
