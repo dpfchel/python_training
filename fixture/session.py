@@ -1,5 +1,5 @@
 
-
+import time
 
 class SessionHelper:
 
@@ -9,6 +9,7 @@ class SessionHelper:
     def login(self, username, password):
         wd = self.app.wd
         self.app.contact.open_home_page()
+        time.sleep(1)
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)

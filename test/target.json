@@ -1,0 +1,4 @@
+__file__ = C:\Users\dpf\PycharmProjects\python_training\conftest.py
+os.path.abspath(__file__) = C:\Users\dpf\PycharmProjects\python_training\conftest.py
+os.path.dirname(os.path.abspath(__file__)) = C:\Users\dpf\PycharmProjects\python_training
+os.path.join(os.path.dirname(os.path.abspath(__file__)), request.config.getoption(--target)) = C:\Users\dpf\PycharmProjects\python_training\target.json
