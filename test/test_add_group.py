@@ -3,15 +3,10 @@ from model.group import Group
 import pytest
 import random
 from fixture.application import Application as appl
+#from data.add_group import testdata
+from data.add_group import constant as testdata
 
 
-   # полный перебор комбинаций
-testdata = [
-    Group(name=name, header=header, footer=footer)
-    for name in ["", (appl.random_string("name", 10)).strip()]   # strip - удалить пробел с начала и конца строки. Для краевых случаев с пробелами в начале и в конце строки - создаем отдельные тесты.
-    for header in ["", appl.random_string("header", 20)]
-    for footer in ["", appl.random_string("footer", 20)]
-]
 @pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
 def test_add_group(app, group):
     old_groups = app.group.get_group_list()  # список групп до проведения шагов
