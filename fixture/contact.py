@@ -2,6 +2,7 @@ import time
 from model.contact import Contact
 import re
 
+
 class ContactHelper:
     def __init__(self, app):
         self.app = app
@@ -90,11 +91,12 @@ class ContactHelper:
 
 
     def open_edit_contacts_page(self):
+
         wd = self.app.wd
         # Если страница не открыта, то откроем страницу
         # menu "add new"
         if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements_by_name("submit")) > 0):
-            wd.get("http://localhost/addressbook/edit.php")
+            wd.get(self.app.base_url + "/edit.php")
 
 
     def open_home_page(self):
@@ -102,7 +104,7 @@ class ContactHelper:
         # Если страница не открыта, то откроем страницу
         # menu "home"
         if not (wd.current_url.endswith("/index.php") and len(wd.find_elements_by_css_selector("[value='Send e-Mail']")) > 0):
-            wd.get(self.app.base_url)
+            wd.get(self.app.base_url + "/index.php")
 
     contact_cache = None  # Кэш для get_contact_list, сбрасываем после создания, удаления, модификации контактов
 
