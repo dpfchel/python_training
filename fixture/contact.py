@@ -91,7 +91,6 @@ class ContactHelper:
 
 
     def open_edit_contacts_page(self):
-
         wd = self.app.wd
         # Если страница не открыта, то откроем страницу
         # menu "add new"
