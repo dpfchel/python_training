@@ -45,7 +45,7 @@ for i in range(n):
             fax_telephone=fax_telephone, email=email, email2=email2, email3=email3, homepage=homepage, day_birthday=day_birthday,
             month_birthday=month_birthday, year_birthday=year_birthday, day_anniversary=day_anniversary, month_anniversary=month_anniversary,
             year_anniversary=year_anniversary, address2=address2, home_phone2=home_phone2, notes=notes)
-    for firstname in [(appl.random_string("firstname", 10)).strip()]
+    for firstname in [(appl.random_string("firstname", 10)).replace(' ', '')]
     for middlename in [appl.random_string("middlename", 10)]
     for lastname in ["", appl.random_string("lastname", 10)]
     for nickname in [appl.random_string("nickname", 10)]

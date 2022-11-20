@@ -37,7 +37,7 @@ def stop(request):
     return fixture
 
 def pytest_addoption(parser):
-    parser.addoption('--browser', action='store', default='firefox')
+    parser.addoption('--browser', action='store', default='chrome')
     parser.addoption('--target', action='store', default='target.json') #'target.json'
 
 def pytest_generate_tests(metafunc):
