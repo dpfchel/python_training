@@ -130,3 +130,11 @@ dmypy.json
 
 # My temp files
 temp_*
+test_test1.py
+target1.json
+quadratic.py
+/geom2d
+/img
+geometry.py
+check_db_connection.py
+files.py
