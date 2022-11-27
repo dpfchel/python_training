@@ -56,6 +56,15 @@ class ContactHelper:
         self.open_home_page()
         self.contact_cache = None
 
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.open_home_page()
+        self.select_contact_by_id(id)
+        wd.find_element_by_css_selector("[onclick='DeleteSel()'][value='Delete']").click()
+        # подтверждаем удаление контакта
+        wd.switch_to.alert.accept()
+        self.open_home_page()
+        self.contact_cache = None
     #def modificate_first_contact(self):
     #    self.modificate_contact_by_index(0)
 
@@ -88,6 +97,11 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page()
         wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_element_by_css_selector("[name='selected[]'][value='%s']" % id).click()
 
 
     def open_edit_contacts_page(self):
