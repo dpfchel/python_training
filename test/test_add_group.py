@@ -24,7 +24,8 @@ def test_add_group_groupname_have_space_in_border(app, db):
     #old_groups = app.group.get_group_list()  # список групп до проведения шагов
     old_groups = db.get_group_list()
     app.group.create(group)  # создали группу
-    assert (len(old_groups)+1) == app.count('group')   # кол-во групп до теста + 1 = кол-ву групп после теста
+    # хеширование не нужно, тк. работаем с БД
+    #assert (len(old_groups)+1) == app.count('group')   # кол-во групп до теста + 1 = кол-ву групп после теста
     #new_groups = app.group.get_group_list()  # список групп после проведения шагов
     new_groups = db.get_group_list()
     #group.name = (group.name)[5:-5] # для проверкок через UI - пробелы удаляются
