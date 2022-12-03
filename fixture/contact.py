@@ -204,10 +204,19 @@ class ContactHelper:
             return re.search(liked_text_mask, text).group(1)
         else: return None
 
-    def get_contact_in_group(self, contact, group):
+    def add_contact_to_group(self, contact, group):
         wd = self.app.wd
         self.open_home_page()
         self.select_contact_by_id(contact.id)
         wd.find_element_by_css_selector("select[name='to_group']").click()
         wd.find_element_by_css_selector("[name='to_group'] [value='%s']" % group.id).click()
         wd.find_element_by_css_selector("[value = 'Add to']").click()
+
+    def del_contact_from_group(self, contact, group):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_element_by_css_selector("[name='group'][onchange='this.parentNode.submit()']").click()
+        wd.find_element_by_css_selector("[onchange='this.parentNode.submit()'] [value='%s']" % group.id).click()
+        wd.find_element_by_css_selector("[type='checkbox'][value='%s']" % contact.id).click()
+        name_css = 'Remove from "%s"' % group.name
+        wd.find_element_by_css_selector("[name='remove'][value = '%s']" % name_css).click()

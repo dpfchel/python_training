@@ -22,9 +22,13 @@ def test_add_contact_in_group(app, db, orm):
             test_group = list_group_from_db[i]
 
     # Добавляем контакт в группу
-    app.contact.get_contact_in_group(test_contact, test_group)
+    app.contact.add_contact_to_group(test_contact, test_group)
     assert len(orm.get_contacts_in_group(test_group)) == 1
     assert orm.get_contacts_in_group(test_group)[0] == test_contact
+
+    # Удаляем контакт из группы
+    app.contact.del_contact_from_group(test_contact, test_group)
+    assert len(orm.get_contacts_in_group(test_group)) == 0
 
     # Удалим тестовые контакт и группу
     app.contact.delete_contact_by_id(test_contact.id)
