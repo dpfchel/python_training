@@ -63,6 +63,9 @@ class Application:
         symbols = string.ascii_letters + string.digits + string.punctuation + " " * 10
         return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
+    def random_number(prefix, maxlen):
+        symbols = string.digits
+        return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
     def destroy(self):
         self.wd.quit()

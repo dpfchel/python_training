@@ -204,3 +204,10 @@ class ContactHelper:
             return re.search(liked_text_mask, text).group(1)
         else: return None
 
+    def get_contact_in_group(self, contact, group):
+        wd = self.app.wd
+        self.open_home_page()
+        self.select_contact_by_id(contact.id)
+        wd.find_element_by_css_selector("select[name='to_group']").click()
+        wd.find_element_by_css_selector("[name='to_group'] [value='%s']" % group.id).click()
+        wd.find_element_by_css_selector("[value = 'Add to']").click()
