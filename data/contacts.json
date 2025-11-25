@@ -1,0 +1,32 @@
+[
+  {
+    "py/object": "model.contact.Contacts",
+"firstname" : "",
+"middlename" : "",
+"lastname" : "",
+"nickname" : "",
+"title" : "",
+"company" : "",
+"address" : "",
+"home_telephone" : "",
+"mobile_telephone" : "",
+"work_telephone" : "",
+"fax_telephone" : "",
+"email" : "",
+"email2" : "",
+"email3" : "",
+"homepage" : "",
+"day_birthday" : "",
+"month_birthday" : "",
+"year_birthday" : "",
+"day_anniversary" : "",
+"month_anniversary" : "",
+"year_anniversary" : "",
+"address2" : "",
+"home_phone2" : "",
+"notes" : "",
+"id": null,
+"all_phones_from_home_page" : "",
+"all_email_from_home_page" : ""
+  }
+]
