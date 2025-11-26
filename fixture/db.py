@@ -22,6 +22,8 @@ class DbFixture:
         finally:
             cursor.close()
         return list
+
+
 # contact.home_telephone, contact.mobile_telephone, contact.work_telephone, contact.home_phone2
     def get_contact_list(self):
         cursor = self.connection.cursor()

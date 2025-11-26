@@ -1,5 +1,11 @@
-
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
 import time
+
 
 class SessionHelper:
 
@@ -9,26 +15,28 @@ class SessionHelper:
     def login(self, username, password):
         wd = self.app.wd
         self.app.contact.open_home_page()
-        time.sleep(1)
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(username)
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
+        element = WebDriverWait(wd, 2).until(
+            EC.presence_of_element_located((By.NAME, "user"))
+        )
+
+        wd.find_element(By.NAME, 'user').click()
+        wd.find_element(By.NAME, 'user').clear()
+        wd.find_element(By.NAME, 'user').send_keys(username)
+        wd.find_element(By.NAME, 'pass').clear()
+        wd.find_element(By.NAME, 'pass').send_keys(password)
+        wd.find_element(By.XPATH,"//input[@value='Login']").click()
 
     def logout(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("Logout").click()
+        wd.find_element(By.LINK_TEXT, "Logout").click()
 
     def ensure_logout(self):
-        wd = self.app.wd
         if self.is_logged_in():
             self.logout()
 
     def is_logged_in(self):
-        wd = self.app.wd
-        return len(wd.find_elements_by_link_text("Logout")) > 0
+        #wd = self.app.wd
+        return False#len(self.app.wd.find_element(By.XPATH,"xpath=//a[contains(text(),'Logout')]")) > 0
 
     def is_logged_in_as(self, username):
         wd = self.app.wd
@@ -36,7 +44,7 @@ class SessionHelper:
 
     def get_logged_user(self):
         wd = self.app.wd
-        return wd.find_element_by_xpath("//div[@id='top']/form/b").text[1:-1]
+        return wd.find_element(By.XPATH,"//div[@id='top']/form/b").text[1:-1]
 
     def ensure_login(self, username, password):
         wd = self.app.wd

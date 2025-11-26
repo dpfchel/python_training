@@ -11,11 +11,11 @@ class GroupHelper:
         wd = self.app.wd
         self.open_groups_page()
         # init group creation
-        wd.find_element_by_name("new").click()
+        wd.find_element(By.NAME, "new").click()
         # fill group form
         self.fill_group_form(group)
         # submit group creation
-        wd.find_element_by_name("submit").click()
+        wd.find_element(By.NAME, "submit").click()
         self.open_groups_page()
         self.group_cache = None # сбрасываем кэш
 
@@ -26,7 +26,7 @@ class GroupHelper:
         wd = self.app.wd
         self.open_groups_page()
         self.select_group_by_index(index)
-        wd.find_element_by_name("delete").click()
+        wd.find_element(By.NAME, "delete").click()
         self.open_groups_page()
         self.group_cache = None  # сбрасываем кэш
 
@@ -34,7 +34,7 @@ class GroupHelper:
         wd = self.app.wd
         self.open_groups_page()
         self.select_group_by_id(id)
-        wd.find_element_by_name("delete").click()
+        wd.find_element(By.NAME, "delete").click()
         self.open_groups_page()
         self.group_cache = None  # сбрасываем кэш
 
@@ -42,7 +42,7 @@ class GroupHelper:
         wd = self.app.wd
         self.open_groups_page()
         self.select_all_groups()
-        wd.find_element_by_name("delete").click()
+        wd.find_element(By.NAME, "delete").click()
         self.open_groups_page()
         self.group_cache = None  # сбрасываем кэш
 
@@ -64,9 +64,9 @@ class GroupHelper:
         wd = self.app.wd
         self.open_groups_page()
         self.select_group_by_index(index)
-        wd.find_element_by_name("edit").click()
+        wd.find_element(By.NAME, "edit").click()
         self.fill_group_form(new_group_data)
-        wd.find_element_by_name("update").click()
+        wd.find_element(By.NAME, "update").click()
         self.open_groups_page()
         self.group_cache = None  # сбрасываем кэш
 
@@ -74,9 +74,9 @@ class GroupHelper:
         wd = self.app.wd
         self.open_groups_page()
         self.select_group_by_id(new_group_data.id)
-        wd.find_element_by_name("edit").click()
+        wd.find_element(By.NAME, "edit").click()
         self.fill_group_form(new_group_data)
-        wd.find_element_by_name("update").click()
+        wd.find_element(By.NAME, "update").click()
         self.open_groups_page()
         self.group_cache = None  # сбрасываем кэш
 

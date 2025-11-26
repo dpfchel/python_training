@@ -1,6 +1,7 @@
 import time
 from model.contact import Contact
 import re
+from selenium.webdriver.common.by import By
 
 
 class ContactHelper:
@@ -12,7 +13,7 @@ class ContactHelper:
         # menu "add new"
         self.open_edit_contacts_page()
         self.fill_contact_form(contact)
-        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        wd.find_element(By.XPATH,"//div[@id='content']/form/input[21]").click()
         self.open_home_page()
         self.contact_cache = None
 
@@ -72,7 +73,7 @@ class ContactHelper:
         wd = self.app.wd
         self.open_contact_to_edit_by_id(new_contact_data.id)
         self.fill_contact_form(new_contact_data)
-        wd.find_element_by_name("update").click()
+        wd.find_element(By.NAME, "update").click()
         self.open_home_page()
         self.contact_cache = None
 
@@ -116,7 +117,7 @@ class ContactHelper:
         wd = self.app.wd
         # Если страница не открыта, то откроем страницу
         # menu "home"
-        if not (wd.current_url.endswith("/index.php") and len(wd.find_elements_by_css_selector("[value='Send e-Mail']")) > 0):
+        if not (wd.current_url.endswith("/index.php") ):  #and len(wd.find_elements_by_css_selector("[value='Send e-Mail']")) > 0
             wd.get(self.app.base_url + "/index.php")
 
     contact_cache = None  # Кэш для get_contact_list, сбрасываем после создания, удаления, модификации контактов
@@ -150,33 +151,33 @@ class ContactHelper:
     def get_contact_info_from_edit_page(self, id):
         wd = self.app.wd
         self.open_contact_to_edit_by_id(id)
-        firstname = wd.find_element_by_name("firstname").get_attribute("value")
-        middlename = wd.find_element_by_name("middlename").get_attribute("value")
-        lastname = wd.find_element_by_name("lastname").get_attribute("value")
-        nickname = wd.find_element_by_name("nickname").get_attribute("value")
+        firstname = wd.find_element(By.NAME, "firstname").get_attribute("value")
+        middlename = wd.find_element(By.NAME, "middlename").get_attribute("value")
+        lastname = wd.find_element(By.NAME, "lastname").get_attribute("value")
+        nickname = wd.find_element(By.NAME, "nickname").get_attribute("value")
         #photo
         #delete
-        company = wd.find_element_by_name("company").get_attribute("value")
-        title = wd.find_element_by_name("title").get_attribute("value")
-        address = wd.find_element_by_name("address").get_attribute("value")
-        home_telephone = wd.find_element_by_name("home").get_attribute("value")
-        mobile_telephone = wd.find_element_by_name("mobile").get_attribute("value")
-        work_telephone = wd.find_element_by_name("work").get_attribute("value")
-        fax_telephone = wd.find_element_by_name("fax").get_attribute("value")
-        email = wd.find_element_by_name("email").get_attribute("value")
-        email2 = wd.find_element_by_name("email2").get_attribute("value")
-        email3 = wd.find_element_by_name("email3").get_attribute("value")
-        homepage = wd.find_element_by_name("homepage").get_attribute("value")
-        day_birthday = wd.find_element_by_name("bday").get_attribute("value")
-        month_birthday = wd.find_element_by_name("bmonth").get_attribute("value")
-        year_birthday = wd.find_element_by_name("byear").get_attribute("value")
-        day_anniversary = wd.find_element_by_name("aday").get_attribute("value")
-        month_anniversary = wd.find_element_by_name("amonth").get_attribute("value")
-        year_anniversary = wd.find_element_by_name("ayear").get_attribute("value")
-        address2 = wd.find_element_by_name("address2").get_attribute("value")
-        home_phone2 = wd.find_element_by_name("phone2").get_attribute("value")
-        notes = wd.find_element_by_name("notes").get_attribute("value")
-        id = wd.find_element_by_name("id").get_attribute("value")
+        company = wd.find_element(By.NAME, "company").get_attribute("value")
+        title = wd.find_element(By.NAME, "title").get_attribute("value")
+        address = wd.find_element(By.NAME, "address").get_attribute("value")
+        home_telephone = wd.find_element(By.NAME, "home").get_attribute("value")
+        mobile_telephone = wd.find_element(By.NAME, "mobile").get_attribute("value")
+        work_telephone = wd.find_element(By.NAME, "work").get_attribute("value")
+        fax_telephone = wd.find_element(By.NAME, "fax").get_attribute("value")
+        email = wd.find_element(By.NAME, "email").get_attribute("value")
+        email2 = wd.find_element(By.NAME, "email2").get_attribute("value")
+        email3 = wd.find_element(By.NAME, "email3").get_attribute("value")
+        homepage = wd.find_element(By.NAME, "homepage").get_attribute("value")
+        day_birthday = wd.find_element(By.NAME, "bday").get_attribute("value")
+        month_birthday = wd.find_element(By.NAME, "bmonth").get_attribute("value")
+        year_birthday = wd.find_element(By.NAME, "byear").get_attribute("value")
+        day_anniversary = wd.find_element(By.NAME, "aday").get_attribute("value")
+        month_anniversary = wd.find_element(By.NAME, "amonth").get_attribute("value")
+        year_anniversary = wd.find_element(By.NAME, "ayear").get_attribute("value")
+        address2 = wd.find_element(By.NAME, "address2").get_attribute("value")
+        home_phone2 = wd.find_element(By.NAME, "phone2").get_attribute("value")
+        notes = wd.find_element(By.NAME, "notes").get_attribute("value")
+        id = wd.find_element(By.NAME, "id").get_attribute("value")
         return Contact(firstname=firstname, middlename=middlename, lastname=lastname, nickname=nickname,
                        company=company, title=title, address=address, home_telephone=home_telephone,
                        mobile_telephone=mobile_telephone, work_telephone=work_telephone, fax_telephone=fax_telephone,
