@@ -1,4 +1,4 @@
-
+from selenium.webdriver.common.by import By
 #from selenium.webdriver.support.ui import Select
 from model.group import Group
 
@@ -97,8 +97,8 @@ class GroupHelper:
 
     def open_groups_page(self):
         wd = self.app.wd
-        if not (wd.current_url.endswith("/groups.php") and len(wd.find_elements_by_name("new")) > 0):
-            wd.find_element_by_link_text("groups").click()
+        if not (wd.current_url.endswith("/groups.php") and len(wd.find_elements(By.NAME, "new")) > 0):
+            wd.find_element(By.LINK_TEXT, "groups").click()
 
     group_cache = None  # Кэш для get_group_list, сбрасываем после создания, удаления, модификации групп
 
@@ -107,9 +107,9 @@ class GroupHelper:
             wd = self.app.wd
             self.open_groups_page()
             self.group_cache = []
-            for element in wd.find_elements_by_css_selector("span.group"):
+            for element in wd.find_elements(By.CSS_SELECTOR, "span.group"):
                 text = element.text
-                id = element.find_element_by_name("selected[]").get_attribute("value") #без wd ищет внутри element
+                id = element.find_element(By.NAME, "selected[]").get_attribute("value") #без wd ищет внутри element
                 self.group_cache.append(Group(name = text, id = id))
         return list(self.group_cache) # list - возвращаем копию кэша
 

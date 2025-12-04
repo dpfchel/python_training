@@ -17,6 +17,9 @@ target = None
 # os.path.abspath(__file__) = C:\Users\dpf\PycharmProjects\python_training\conftest.py
 # os.path.dirname(os.path.abspath(__file__)) = C:\Users\dpf\PycharmProjects\python_training
 # os.path.join(os.path.dirname(os.path.abspath(__file__)), request.config.getoption(--target)) = C:\Users\dpf\PycharmProjects\python_training\target.json
+
+# В файле target.json два блока - web и db. В переменную target считываем файл target.json как структуру json,
+# если она еще не была считана ранее ( это кеширование)
 def load_config(file):
     global target
     if target is None:
@@ -29,7 +32,7 @@ def load_config(file):
 def app(request):
     global fixture
     browser = request.config.getoption('--browser')
-    web_config = load_config(request.config.getoption("--target"))['web']
+    web_config = load_config(request.config.getoption("--target"))['web']    # считываем из target раздел web
     if fixture is None or not fixture.is_valid():
         fixture = Application(browser=browser, base_url=web_config['baseUrl'])
     fixture.session.ensure_login(username=web_config['username'], password=web_config['password'])
@@ -37,7 +40,7 @@ def app(request):
 
 @pytest.fixture(scope='session')
 def db(request):
-    db_config = load_config(request.config.getoption("--target"))['db']
+    db_config = load_config(request.config.getoption("--target"))['db']  # считываем из target раздел db
     dbfixture = DbFixture(host=db_config['host'], name=db_config['name'], user=db_config['user'], password=db_config['password'])
     def fin():
         dbfixture.destroy()
