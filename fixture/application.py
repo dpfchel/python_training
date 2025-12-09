@@ -26,10 +26,10 @@ class Application:
         if browser == 'chrome':
             #chrome_options = webdriver.ChromeOptions()
             #chrome_options.binary_location = "C:/Program Files/Google/Chrome/Application/chrome.exe"
-            #self.wd = webdriver.Chrome(executable_path=r'chromedriver.exe')
+            #self.wd = webdriver.Chrome(executable_path=r'/usr/bin/google-chrome-stable')   #chromedriver.exe
             # Автоматически скачивается нужный драйвер
-            #self.wd = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-            service = ChromeService('c:/python312/chromedriver.exe')  # укажите путь к вашему chromedriver.exe
+            service = ChromeService('../driver/chromedriver')  # 'c:/python312/chromedriver.exe' укажите путь к вашему chromedriver.exe
+            self.wd = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
             self.wd = webdriver.Chrome(service=service)
         elif browser == 'firefox':
             #self.wd = webdriver.Firefox(executable_path=r'geckodriver.exe')
