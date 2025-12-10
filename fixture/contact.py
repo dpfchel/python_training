@@ -51,7 +51,7 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page()
         self.select_contact_by_index(index)
-        wd.find_element_by_css_selector("[onclick='DeleteSel()'][value='Delete']").click()
+        wd.find_element(By.CSS_SELECTOR, "[onclick='DeleteSel()'][value='Delete']").click()
         # подтверждаем удаление контакта
         wd.switch_to.alert.accept()
         self.open_home_page()
@@ -61,7 +61,7 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page()
         self.select_contact_by_id(id)
-        wd.find_element_by_css_selector("[onclick='DeleteSel()'][value='Delete']").click()
+        wd.find_element(By.CSS_SELECTOR, "[onclick='DeleteSel()'][value='Delete']").click()
         # подтверждаем удаление контакта
         wd.switch_to.alert.accept()
         self.open_home_page()
@@ -82,14 +82,14 @@ class ContactHelper:
         self.open_home_page()
         # переход в модификацию контакта по карандашу с нужным id записи
         str_id = "[href='edit.php?id=%s']" % id  # str_id = "[href='edit.php?id=" + new_contact_data.id + "']"
-        wd.find_element_by_css_selector(str_id).click()
+        wd.find_element(By.CSS_SELECTOR, str_id).click()
 
     def open_contact_view_by_id(self, id):
         wd = self.app.wd
         self.open_home_page()
         # переход в модификацию контакта по карандашу с нужным id записи
         str_id = "[href='view.php?id=%s']" % id  # str_id = "[href='edit.php?id=" + new_contact_data.id + "']"
-        wd.find_element_by_css_selector(str_id).click()
+        wd.find_element(By.CSS_SELECTOR, str_id).click()
 
     #def select_first_contact(self):
     #    self.select_contact_by_index(0)
@@ -97,19 +97,19 @@ class ContactHelper:
     def select_contact_by_index(self, index):
         wd = self.app.wd
         self.open_home_page()
-        wd.find_elements_by_name("selected[]")[index].click()
+        wd.find_elements(By.NAME, "selected[]")[index].click()
 
     def select_contact_by_id(self, id):
         wd = self.app.wd
         self.open_home_page()
-        wd.find_element_by_css_selector("[name='selected[]'][value='%s']" % id).click()
+        wd.find_element(By.CSS_SELECTOR, "[name='selected[]'][value='%s']" % id).click()
 
 
     def open_edit_contacts_page(self):
         wd = self.app.wd
         # Если страница не открыта, то откроем страницу
         # menu "add new"
-        if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements_by_name("submit")) > 0):
+        if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements(By.NAME, "submit")) > 0):
             wd.get(self.app.base_url + "/edit.php")
 
 
@@ -117,7 +117,7 @@ class ContactHelper:
         wd = self.app.wd
         # Если страница не открыта, то откроем страницу
         # menu "home"
-        if not (wd.current_url.endswith("/index.php") ):  #and len(wd.find_elements_by_css_selector("[value='Send e-Mail']")) > 0
+        if not (wd.current_url.endswith("/index.php") ):  #and len(wd.find_elements(By.CSS_SELECTOR,"[value='Send e-Mail']")) > 0
             wd.get(self.app.base_url + "/index.php")
 
     contact_cache = None  # Кэш для get_contact_list, сбрасываем после создания, удаления, модификации контактов
@@ -128,18 +128,18 @@ class ContactHelper:
             self.open_home_page()
             self.contact_cache = []
             i = 2                          # Вариант Алексея - 5- Режем строки на части (00:58)
-            for element in wd.find_elements_by_css_selector("tr[name='entry']"):
-                id = element.find_element_by_name("selected[]").get_attribute("value")
+            for element in wd.find_elements(By.CSS_SELECTOR,"tr[name='entry']"):
+                id = element.find_element(By.NAME, "selected[]").get_attribute("value")
                 str2 = "//tr[%s]/td[2]" % str(i)  #str2 = "//tr[" + str(i) + "]/td[2]"
-                lastname = element.find_element_by_xpath(str2).text
+                lastname = element.find_element(By.XPATH, str2).text
                 str3 = "//tr[%s]/td[3]" % str(i)
-                firstname = element.find_element_by_xpath(str3).text
+                firstname = element.find_element(By.XPATH,str3).text
                 str4 = "//tr[%s]/td[4]" % str(i)
-                address = element.find_element_by_xpath(str4).text
+                address = element.find_element(By.XPATH,str4).text
                 str5 = "//tr[%s]/td[5]" % str(i)
-                all_email_str = element.find_element_by_xpath(str5).text
+                all_email_str = element.find_element(By.XPATH,str5).text
                 str6 = "//tr[%s]/td[6]" % str(i)
-                all_phones_str = element.find_element_by_xpath(str6).text
+                all_phones_str = element.find_element(By.XPATH,str6).text
                 all_phones = all_phones_str.splitlines()
                 self.contact_cache.append(Contact(lastname=lastname, firstname=firstname, id=id, address=address,
                                                   all_email_from_home_page=all_email_str, all_phones_from_home_page=all_phones_str))
@@ -190,7 +190,7 @@ class ContactHelper:
     def get_contact_info_from_view_page(self, id):
         wd = self.app.wd
         self.open_contact_view_by_id(id)
-        text = wd.find_element_by_id("content").text
+        text = wd.find_element(By.ID, "content").text
         home_telephone = self.search_text_phones_on_view_page("H: (.*)", text)
         mobile_telephone = self.search_text_phones_on_view_page("M: (.*)", text)
         work_telephone = self.search_text_phones_on_view_page("W: (.*)", text)
@@ -209,15 +209,15 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page()
         self.select_contact_by_id(contact.id)
-        wd.find_element_by_css_selector("select[name='to_group']").click()
-        wd.find_element_by_css_selector("[name='to_group'] [value='%s']" % group.id).click()
-        wd.find_element_by_css_selector("[value = 'Add to']").click()
+        wd.find_element(By.CSS_SELECTOR, "select[name='to_group']").click()
+        wd.find_element(By.CSS_SELECTOR, "[name='to_group'] [value='%s']" % group.id).click()
+        wd.find_element(By.CSS_SELECTOR, "[value = 'Add to']").click()
 
     def del_contact_from_group(self, contact, group):
         wd = self.app.wd
         self.open_home_page()
-        wd.find_element_by_css_selector("[name='group'][onchange='this.parentNode.submit()']").click()
-        wd.find_element_by_css_selector("[onchange='this.parentNode.submit()'] [value='%s']" % group.id).click()
-        wd.find_element_by_css_selector("[type='checkbox'][value='%s']" % contact.id).click()
+        wd.find_element(By.CSS_SELECTOR, "[name='group'][onchange='this.parentNode.submit()']").click()
+        wd.find_element(By.CSS_SELECTOR, "[onchange='this.parentNode.submit()'] [value='%s']" % group.id).click()
+        wd.find_element(By.CSS_SELECTOR, "[type='checkbox'][value='%s']" % contact.id).click()
         name_css = 'Remove from "%s"' % group.name
-        wd.find_element_by_css_selector("[name='remove'][value = '%s']" % name_css).click()
+        wd.find_element(By.CSS_SELECTOR, "[name='remove'][value = '%s']" % name_css).click()

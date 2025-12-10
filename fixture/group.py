@@ -49,11 +49,11 @@ class GroupHelper:
 
     def select_group_by_id(self, id):
         wd = self.app.wd
-        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+        wd.find_element(By.CSS_SELECTOR, "input[value='%s']" % id).click()
 
     def select_all_groups(self):
         wd = self.app.wd
-        list_group = wd.find_elements_by_css_selector("[type='checkbox']")
+        list_group = wd.find_elements(By.CSS_SELECTOR, "[type='checkbox']")
         for i in range(len(list_group)):
             list_group[i].click()
 
@@ -87,7 +87,7 @@ class GroupHelper:
     def select_group_by_index(self, index):
         wd = self.app.wd
         self.open_groups_page()
-        wd.find_elements_by_name("selected[]")[index].click()
+        wd.find_elements(By.NAME, "selected[]")[index].click()
 
     def fill_group_form(self, group):
         wd = self.app.wd
