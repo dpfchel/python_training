@@ -1,3 +1,5 @@
+from idlelib.browser import file_open
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -44,6 +46,11 @@ class SessionHelper:
 
     def get_logged_user(self):
         wd = self.app.wd
+
+        file_name = '../driver/temp_test.txt'
+        with open(file_name, 'a', encoding='utf-8') as file:
+            file.write(wd.find_element(By.XPATH,"//div[@id='top']/form/b").text[1:-1])
+
         return wd.find_element(By.XPATH,"//div[@id='top']/form/b").text[1:-1]
 
     def ensure_login(self, username, password):
