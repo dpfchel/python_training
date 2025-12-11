@@ -1,5 +1,22 @@
-# Третий вариант - для доступа через ORM
+# Var4 - get_contacts in group (ORM)
+
 from fixture.orm import ORMFixture
+from model.group import Group
+
+db = ORMFixture(host='127.0.0.1', name='addressbook', user='root', password='')
+
+try:
+    l = db.get_contacts_in_group(Group(id="479"))       # получим список контактов
+    for item in l:
+        print(item)
+    print(len(l))
+finally:
+    pass
+
+
+
+# Третий вариант - для доступа через ORM
+"""from fixture.orm import ORMFixture
 
 db = ORMFixture(host='127.0.0.1', name='addressbook', user='root', password='')
 
@@ -12,7 +29,7 @@ try:
 finally:
     pass
 
-
+"""
 
 
 # Второй вариант - для доступа напрямую в БД
