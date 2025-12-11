@@ -13,6 +13,7 @@ class SessionHelper:
 
     def __init__(self, app):
         self.app = app
+        self.file_name = '../driver/login.txt'
 
     def login(self, username, password):
         wd = self.app.wd
@@ -27,37 +28,56 @@ class SessionHelper:
         wd.find_element(By.NAME, 'pass').clear()
         wd.find_element(By.NAME, 'pass').send_keys(password)
         wd.find_element(By.XPATH,"//input[@value='Login']").click()
+        with open(self.file_name, 'w', encoding='utf-8') as file:
+            file.write(' SessionHelper -- login -- ' + '\n')
+            file.write('username - ' + str(username) + " password - " + str(password) + '\n')
 
     def logout(self):
         wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "Logout").click()
 
     def ensure_logout(self):
+        with open(self.file_name, 'a', encoding='utf-8') as file:
+            file.write(' SessionHelper -- ensure_logout -- ' + '\n')
         if self.is_logged_in():
             self.logout()
 
     def is_logged_in(self):
+        with open(self.file_name, 'a', encoding='utf-8') as file:
+            file.write(' SessionHelper -- is_logged_in -- ' + '\n')
+            time.sleep(5)
+            file.write(str(self.app.wd.find_element(By.XPATH,"xpath=//a[contains(text(),'(admin)')]")) + '\n')
         #wd = self.app.wd
-        return False#len(self.app.wd.find_element(By.XPATH,"xpath=//a[contains(text(),'Logout')]")) > 0
+        return len(self.app.wd.find_element(By.XPATH,"xpath=//a[contains(text(),'(admin)')]")) > 0
 
     def is_logged_in_as(self, username):
+        with open(self.file_name, 'a', encoding='utf-8') as file:
+            file.write(' SessionHelper -- is_logged_in_as -- ' + '\n')
+            file.write('username - ' + str(username) + '\n')
         wd = self.app.wd
         return self.get_logged_user() == username
 
     def get_logged_user(self):
         wd = self.app.wd
 
-        file_name = '../driver/temp_test.txt'
-        with open(file_name, 'a', encoding='utf-8') as file:
-            file.write(wd.find_element(By.XPATH,"//div[@id='top']/form/b").text[1:-1])
+        with open(self.file_name, 'a', encoding='utf-8') as file:
+            file.write(' SessionHelper -- get_logged_user -- ' + '\n')
+            file.write(str(wd.find_element(By.XPATH,"//div[@id='top']/form/b").text[1:-1]) + '\n')
 
         return wd.find_element(By.XPATH,"//div[@id='top']/form/b").text[1:-1]
 
     def ensure_login(self, username, password):
+        with open(self.file_name, 'a', encoding='utf-8') as file:
+            file.write(' SessionHelper -- ensure_login -- ' + '\n')
+            file.write('username - ' + str(username) + " password - " + str(password) + '\n')
         wd = self.app.wd
         if self.is_logged_in():
             if self.is_logged_in_as(username):
+                with open(self.file_name, 'a', encoding='utf-8') as file:
+                    file.write('Сработало if self.is_logged_in_as(username) ' + '\n')
                 return    # выход из метода, если залогинен именно username
             else:
+                with open(self.file_name, 'a', encoding='utf-8') as file:
+                    file.write('Сработало else для if self.is_logged_in_as(username) ' + '\n')
                 self.logout() # если залогин, но не username - выйдем
         self.login(username, password)  # 1) если пользователь не залогинен, то логинемся, 2) или через if-else

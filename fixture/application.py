@@ -22,15 +22,15 @@ import string
 
 
 class Application:
-    def __init__(self, browser, base_url):
+    """def __init__(self, browser, base_url):
         if browser == 'chrome':
             #chrome_options = webdriver.ChromeOptions()
             #chrome_options.binary_location = "C:/Program Files/Google/Chrome/Application/chrome.exe"
             #self.wd = webdriver.Chrome(executable_path=r'/usr/bin/google-chrome-stable')   #chromedriver.exe
             # Автоматически скачивается нужный драйвер
-            service = ChromeService('../driver/chromedriver')  # 'c:/python312/chromedriver.exe' укажите путь к вашему chromedriver.exe
+            #service = ChromeService('../driver/chromedriver')  # 'c:/python312/chromedriver.exe' укажите путь к вашему chromedriver.exe
             self.wd = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-            self.wd = webdriver.Chrome(service=service)
+            #self.wd = webdriver.Chrome(service=service)
         elif browser == 'firefox':
             #self.wd = webdriver.Firefox(executable_path=r'geckodriver.exe')
             # Запускаем браузер Firefox с автоматической загрузкой нужного драйвера
@@ -41,15 +41,38 @@ class Application:
             self.wd = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
         else:
             raise ValueError("Unrecognazed browser %s" % browser)
-        #self.wd.implicitly_wait(5)
         # Устанавливаем время ожидания (например, 10 секунд)
         self.wd.implicitly_wait(10)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
         self.base_url=base_url
-        #self.wd.get(self.base_url)
-        #time.sleep(3)
+        self.wd.get(self.base_url)
+        time.sleep(3)"""
+
+    def __init__(self, browser, base_url):
+        if browser == 'chrome':
+            service = ChromeService(ChromeDriverManager().install())
+            self.wd = webdriver.Chrome(service=service)
+
+        elif browser == 'firefox':
+            service = FirefoxService(GeckoDriverManager().install())
+            self.wd = webdriver.Firefox(service=service)
+
+        elif browser == 'edge':
+            service = EdgeService(EdgeChromiumDriverManager().install())
+            self.wd = webdriver.Edge(service=service)
+
+        else:
+            raise ValueError(f"Unrecognized browser {browser}")
+
+        # Установка времени ожидания (например, 10 секунд)
+        self.wd.implicitly_wait(10)
+        self.session = SessionHelper(self)
+        self.group = GroupHelper(self)
+        self.contact = ContactHelper(self)
+        self.base_url = base_url
+        self.wd.get(self.base_url)
 
     def is_valid(self):
         try:
