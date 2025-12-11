@@ -35,7 +35,7 @@ def app(request):
     web_config = load_config(request.config.getoption("--target"))['web']    # считываем из target раздел web
     if fixture is None or not fixture.is_valid():
         fixture = Application(browser=browser, base_url=web_config['baseUrl'])
-    #fixture.session.login(username=web_config['username'], password=web_config['password'])
+    fixture.session.ensure_login(username=web_config['username'], password=web_config['password'])
     return fixture
 
 @pytest.fixture(scope='session')

@@ -67,7 +67,7 @@ class Application:
             raise ValueError(f"Unrecognized browser {browser}")
 
         # Установка времени ожидания (например, 10 секунд)
-        self.wd.implicitly_wait(10)
+        self.wd.implicitly_wait(5)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
@@ -76,7 +76,7 @@ class Application:
 
     def is_valid(self):
         try:
-            self.wd.current_url
+            self.wd.current_url   # Просим броузер вернуть текущую страницу - если он не завис то вернет
             return True
         except:
             return False

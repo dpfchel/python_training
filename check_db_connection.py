@@ -6,8 +6,8 @@ from model.group import Group
 db = ORMFixture(host='127.0.0.1', name='addressbook', user='root', password='')
 
 try:
-    #l = db.get_contacts_in_group(Group(id="479"))       # получим список контактов
-    l = db.get_contacts_not_in_groups(Group(id="479"))  # получим список контактов
+    l = db.get_contacts_in_group(Group(id="1"))       # получим список контактов
+    #l = db.get_contacts_not_in_groups(Group(id="479"))  # получим список контактов
     for item in l:
         print(item)
     print(len(l))
