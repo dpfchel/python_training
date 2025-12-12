@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    userRemoteConfigs: [[url:"https://github.com/dpfchel/python_training/"]]
+                ])
+            }
+        }
+        // ... другие шаги, например:
+        stage('Build & Test') {
+            steps {
+                sh 'poetry env activate'
+                sh 'poetry install'
+                sh 'python -m pytest -v /test/test_add_contacts.py' // Пример команды
+            }
+        }
+    }
+}
