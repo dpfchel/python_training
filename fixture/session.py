@@ -69,7 +69,6 @@ class SessionHelper:
         return self.get_logged_user() == username
 
 
-
     def get_logged_user(self):
         wd = self.app.wd
 
