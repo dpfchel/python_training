@@ -13,7 +13,7 @@ class SessionHelper:
 
     def __init__(self, app):
         self.app = app
-        self.file_name = '../driver/login.txt'
+        #self.file_name = '../driver/login.txt'
 
 
     def login(self, username, password):
@@ -29,9 +29,9 @@ class SessionHelper:
         wd.find_element(By.NAME, 'pass').clear()
         wd.find_element(By.NAME, 'pass').send_keys(password)
         wd.find_element(By.XPATH,"//input[@value='Login']").click()
-        with open(self.file_name, 'w', encoding='utf-8') as file:
-            file.write(' session.py -- login -- ' + '\n')
-            file.write('username - ' + str(username) + " password - " + str(password) + '\n\n')
+        #with open(self.file_name, 'w', encoding='utf-8') as file:
+        #    file.write(' session.py -- login -- ' + '\n')
+        #    file.write('username - ' + str(username) + " password - " + str(password) + '\n\n')
 
 
 
@@ -42,8 +42,8 @@ class SessionHelper:
 
 
     def ensure_logout(self):
-        with open(self.file_name, 'a', encoding='utf-8') as file:
-            file.write(' session.py -- ensure_logout -- ' + '\n\n')
+        #with open(self.file_name, 'a', encoding='utf-8') as file:
+        #    file.write(' session.py -- ensure_logout -- ' + '\n\n')
         if self.is_logged_in():
             self.logout()
 
@@ -51,9 +51,9 @@ class SessionHelper:
 
     def is_logged_in(self):
         wd = self.app.wd
-        with open(self.file_name, 'a', encoding='utf-8') as file:
-            file.write(' session.py -- is_logged_in -- ' + '\n')
-            file.write("Кол-во текста Logout = " + str(len(wd.find_elements(By.LINK_TEXT, "Logout"))) + '\n\n')
+        #with open(self.file_name, 'a', encoding='utf-8') as file:
+        #    file.write(' session.py -- is_logged_in -- ' + '\n')
+        #    file.write("Кол-во текста Logout = " + str(len(wd.find_elements(By.LINK_TEXT, "Logout"))) + '\n\n')
         return len(wd.find_elements(By.LINK_TEXT, "Logout")) > 0
 
         #return len(self.app.wd.find_element(By.XPATH,"xpath=//a[contains(text(),'(admin)')]")) > 0
@@ -62,9 +62,9 @@ class SessionHelper:
 
 
     def is_logged_in_as(self, username):
-        with open(self.file_name, 'a', encoding='utf-8') as file:
-            file.write(' session.py -- is_logged_in_as -- ' + '\n')
-            file.write('username - ' + str(username) + '\n\n')
+        #with open(self.file_name, 'a', encoding='utf-8') as file:
+        #    file.write(' session.py -- is_logged_in_as -- ' + '\n')
+        #    file.write('username - ' + str(username) + '\n\n')
         wd = self.app.wd
         return self.get_logged_user() == username
 
@@ -72,9 +72,9 @@ class SessionHelper:
     def get_logged_user(self):
         wd = self.app.wd
 
-        with open(self.file_name, 'a', encoding='utf-8') as file:
-            file.write(' session.py -- get_logged_user -- ' + '\n')
-            file.write(str(wd.find_element(By.XPATH,"//div[@id='top']/form/b").text[1:-1]) + '\n\n')
+        #with open(self.file_name, 'a', encoding='utf-8') as file:
+        #    file.write(' session.py -- get_logged_user -- ' + '\n')
+        #    file.write(str(wd.find_element(By.XPATH,"//div[@id='top']/form/b").text[1:-1]) + '\n\n')
 
         return wd.find_element(By.XPATH,"//div[@id='top']/form/b").text[1:-1]
 
@@ -82,17 +82,17 @@ class SessionHelper:
 
 
     def ensure_login(self, username, password):
-        with open(self.file_name, 'a', encoding='utf-8') as file:
-            file.write(' session.py -- ensure_login -- ' + '\n')
-            file.write('username - ' + str(username) + " password - " + str(password) + '\n')
+        #with open(self.file_name, 'a', encoding='utf-8') as file:
+        #    file.write(' session.py -- ensure_login -- ' + '\n')
+        #    file.write('username - ' + str(username) + " password - " + str(password) + '\n')
         wd = self.app.wd
         if self.is_logged_in():
             if self.is_logged_in_as(username):
-                with open(self.file_name, 'a', encoding='utf-8') as file:
-                    file.write('Сработало if self.is_logged_in_as(username) ' + '\n\n')
+                #with open(self.file_name, 'a', encoding='utf-8') as file:
+                #    file.write('Сработало if self.is_logged_in_as(username) ' + '\n\n')
                 return    # выход из метода, ничего не делая, если залогинен именно username
             else:
-                with open(self.file_name, 'a', encoding='utf-8') as file:
-                    file.write('Сработало else для if self.is_logged_in_as(username) ' + '\n\n')
+                #with open(self.file_name, 'a', encoding='utf-8') as file:
+                #    file.write('Сработало else для if self.is_logged_in_as(username) ' + '\n\n')
                 self.logout() # если залогин, но не username - выйдем
         self.login(username, password)  # 1) если пользователь не залогинен, то логинемся, 2) или через if-else
