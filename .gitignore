@@ -10,7 +10,6 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -138,3 +137,5 @@ quadratic.py
 geometry.py
 check_db_connection.py
 files.py
+
+.idea/misc.xml
