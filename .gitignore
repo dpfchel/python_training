@@ -137,3 +137,5 @@ quadratic.py
 geometry.py
 check_db_connection.py
 files.py
+
+.idea/misc.xml
