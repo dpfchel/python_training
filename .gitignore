@@ -139,3 +139,7 @@ check_db_connection.py
 files.py
 
 .idea/misc.xml
+.idea/misc (Copy).xml
+.idea/misc_win.xml
+driver/chromedriver-linux64/
+driver/login.txt
