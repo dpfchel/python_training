@@ -1,0 +1,16 @@
+name: wf_3
+
+on: [push]
+
+jobs:
+  run-3-command:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy repo to station
+        run: |
+          git init
+          git remote add origin "https://$GITHUB_ACTOR:${{secrets.GITHUB_TOKEN}}@github.com
+          git fetch origin
+          git checkout main
+      - name: List files
+        run: ls -l
