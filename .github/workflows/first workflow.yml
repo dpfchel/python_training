@@ -8,3 +8,7 @@ jobs:
     steps:
       - name: Display some text
         run: echo "some text"
+      - name: MultyStep
+        run: |
+          python -version
+          node -v
