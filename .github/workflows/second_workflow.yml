@@ -3,6 +3,15 @@ name: second_fw
 on: [push]
 
 jobs:
+  run-first-command:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display some text
+        run: echo "some text"
+      - name: MultyStep
+        run: |
+          which python
+          node -v
   run-second-command:
     needs: run-first-command
     runs-on: ubuntu-latest

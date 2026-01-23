@@ -3,7 +3,7 @@ name: first_fw
 on: [push]
 
 jobs:
-  run-first-command:
+  run-1-command:
     runs-on: ubuntu-latest
     steps:
       - name: Display some text
