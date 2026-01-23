@@ -6,9 +6,6 @@ jobs:
   run-3-command:
     runs-on: ubuntu-latest
     steps:
-      - name: Copy repo to station
-        run: |
-          git clone "https://github.com/dpfchel/python_training.git"
-          git checkout main
+      - uses: actions/checkout@v4
       - name: List files
         run: ls -l
