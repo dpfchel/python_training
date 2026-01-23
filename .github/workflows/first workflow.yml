@@ -10,5 +10,5 @@ jobs:
         run: echo "some text"
       - name: MultyStep
         run: |
-          python -v
+          which python
           node -v
