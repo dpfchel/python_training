@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Copy repo to station
         run: |
-          git clone "https://$GITHUB_ACTOR:${{secrets.GITHUB_TOKEN}}@github.com"
+          git clone "https://github.com/dpfchel/python_training.git"
           git checkout main
       - name: List files
         run: ls -l
