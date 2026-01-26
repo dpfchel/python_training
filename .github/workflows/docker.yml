@@ -1,0 +1,20 @@
+name: docker_wf
+
+on: [push]
+
+jobs:
+  test_docker_cont:
+    runs-on: ubuntu-latest
+    container:
+      node: 25-alpine3.22
+      env:
+        NODE_ENV: Dev
+      ports:
+        -80
+      volumes:
+        -docker_volumes:/volumes
+      options: --cpus 1
+
+    steps:
+      - name: Display node ver
+        run: node -v
