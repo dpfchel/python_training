@@ -6,13 +6,13 @@ jobs:
   test_docker_cont:
     runs-on: ubuntu-latest
     container:
-      node: 25-alpine3.22
+      image: node:12
       env:
         NODE_ENV: Dev
       ports:
-        -80
+        - 80
       volumes:
-        -docker_volumes:/volumes
+        - docker_volumes:/volumes
       options: --cpus 1
 
     steps:
