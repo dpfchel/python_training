@@ -1,6 +1,10 @@
 name: wf_3
 
-on: [push]
+on:
+  pull_request:
+    types:
+      [assigned, edited]
+
 
 jobs:
   run-3-command:
