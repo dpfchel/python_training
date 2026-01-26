@@ -5,6 +5,9 @@ on: [push]
 jobs:
   test_docker_cont:
     runs-on: ubuntu-latest
+    services:
+      customMysql:
+        image: mysql
     container:
       image: node:12
       env:
@@ -16,5 +19,11 @@ jobs:
       options: --cpus 1
 
     steps:
+      - name: Display Service image
+        run: echo '${{ toJSON(job.services) }}'
       - name: Display node ver
         run: node -v
+      - name: Print new version
+        uses: docker://node:18-buster-slim
+        with:
+          args: -v
