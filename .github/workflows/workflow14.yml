@@ -1,0 +1,9 @@
+name: workflow14
+on: workflow_dispatch
+jobs:
+  first-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Custom module
+        uses: ./.github/actions/cache-node-module
