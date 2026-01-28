@@ -52,8 +52,11 @@ def db(request):
 @pytest.fixture(scope="session", autouse=True) # сработает автоматом, даже если ни в каком тесте не указана
 def stop(request):
     def fin():
-        fixture.session.ensure_logout()
-        fixture.destroy()
+        try:
+            fixture.session.ensure_logout()
+            fixture.destroy()
+        except Exception as err:
+            pass
     request.addfinalizer(fin)
     return fixture
 
