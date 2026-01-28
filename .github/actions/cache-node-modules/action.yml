@@ -16,7 +16,9 @@ runs:
       run: echo '${{ toJSON(steps.cache-step.outputs) }}'
       shell: bash
     - name: Install node
-      run: npm install
+      run: |
+        npm init
+        npm install
       shell: bash
 
 
