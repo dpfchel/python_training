@@ -3,21 +3,20 @@ description: 'some description'
 runs:
   using: 'composite'
   steps:
-    steps:
-      - name: Cache node module
-        id: cache-step
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-cache-file-&{{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-cache-file-
-            ${{ runner.os }}-
-      - name: Display cache
-        run: echo '${{ toJSON(steps.cache-step.outputs) }}'
-        shell: bash
-      - name: Install node
-        run: npm install
-        shell: bash
+    - name: Cache node module
+      id: cache-step
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-cache-file-&{{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-cache-file-
+          ${{ runner.os }}-
+    - name: Display cache
+      run: echo '${{ toJSON(steps.cache-step.outputs) }}'
+      shell: bash
+    - name: Install node
+      run: npm install
+      shell: bash
 
 
