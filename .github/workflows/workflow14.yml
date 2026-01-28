@@ -7,3 +7,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: Custom module
         uses: ./.github/actions/cache-node-modules
+        with:
+          caching: 'false'
